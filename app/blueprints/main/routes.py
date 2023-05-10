@@ -7,5 +7,5 @@ def home():
     return render_template('index.j2', title='Home')
 
 @bp.route('/inventory')
-def about():
+def inventory():
     return render_template('about.j2')
