@@ -1,0 +1,27 @@
+{% extends "base.j2" %}
+
+{% block content %}
+  <h2>Post</h2>
+  <form action="" method="post">
+  {{ form.hidden_tag() }}
+ <p>
+    {{ form.brand.label }}<br>
+    {{ form.brand(size=32) }}
+ </p>
+ <p>
+    {{ form.model.label }}<br>
+    {{ form.model(size=32) }}
+    {% for error in form.brand.errors %}
+      <span class="err-msg">{{ error }}</span>
+    {% endfor %}
+ </p>
+ <p>
+ <p>
+    {{ form.year.label }}<br>
+    {{ form.year(size=32) }}
+ </p>
+ </p>
+ 
+ <p>{{ form.submit() }}</p>
+</form>
+{% endblock %}

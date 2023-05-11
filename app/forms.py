@@ -7,3 +7,14 @@ class RegisterForm(FlaskForm):
     email = StringField('email', validators=[DataRequired(), Email()])
     password = PasswordField('password', validators=[DataRequired()])
     submit = SubmitField('Register')
+
+class SigninForm(FlaskForm):
+    username = StringField('username', validators=[DataRequired()])
+    password = PasswordField('password', validators=[DataRequired()])
+    submit = SubmitField('Sign In')
+
+class CarForm(FlaskForm):
+    brand =StringField('brand', validators=[DataRequired()])
+    model=StringField('model', validators=[DataRequired()])
+    year=StringField('year', validators=[DataRequired()])
+    submit = SubmitField('Collect')

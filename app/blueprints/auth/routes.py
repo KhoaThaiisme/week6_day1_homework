@@ -1,10 +1,9 @@
 from flask import render_template, flash, redirect, url_for
-
+from flask_login import login_user
 from app.models import User
-from app import db
 
 from . import bp 
-from app.forms import RegisterForm
+from app.forms import RegisterForm, SigninForm
 
 @bp.route('/register', methods=['GET','POST'])
 def register():
@@ -14,8 +13,9 @@ def register():
         email = User.query.filter_by(email=form.email.data).first()
         if not email and not user:
             u = User(username=form.username.data,email=form.username.data,password=form.password.data)
+            u.password = u.hash_password(form.password.data)
             u.commit()
-            flash(f'{form.username.data} has been registered')
+            flash(f'{form.username.data} has been registered', 'success')
             return redirect(url_for("main.home"))
         if user:
             flash(f'{form.username.data} already taken, try again')
@@ -37,6 +37,15 @@ def register():
     #     elif email:
     #         flash(f'{form.email.data} has already taken, try again!')
 
-@bp.route('/signin')
+@bp.route('/signin', methods=['GET', 'POST'])
 def signin():
-    return render_template('signin.j2')
+    form=SigninForm()
+    if form.validate_on_submit():
+        user=User.query.filter_by(username=form.username.data).first()
+        if user and user.check_password(form.password.data):
+            flash(f'{form.username.data} signed in!', 'success')
+            login_user(user)
+            return redirect(url_for('main.home'))
+        else:
+            flash(f'{form.username.data} doesn\'t exist, or password is incorrect, please try again')
+    return render_template('signin.j2', form=form)
