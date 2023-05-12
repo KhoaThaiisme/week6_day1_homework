@@ -17,4 +17,5 @@ class CarForm(FlaskForm):
     brand =StringField('brand', validators=[DataRequired()])
     model=StringField('model', validators=[DataRequired()])
     year=StringField('year', validators=[DataRequired()])
+    description=StringField('desc')
     submit = SubmitField('Collect')

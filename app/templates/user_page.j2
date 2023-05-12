@@ -1,0 +1,9 @@
+{% extends "base.j2" %}
+
+{% block content %}
+<h3>{{ user.username }}'s Page</h3>
+
+{% for car in user.cars %}
+  <p>{{ car.brand }} {{ car.model }} {{car.year}}</p>
+{% endfor %}
+{% endblock %}

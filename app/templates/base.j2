@@ -15,15 +15,24 @@
   <li class="nav-item">
     <a class="nav-link active" aria-current="page" href="{{url_for('main.home')}}">Home</a>
   </li>
-  <li class="nav-item">
-    <a class="nav-link" href="{{ url_for('collection.car') }}">Our Inventory</a>
-  </li>
+  {% if not current_user.is_authenticated %}
   <li class="nav-item">
     <a class="nav-link" href="{{ url_for('auth.register') }}">Register</a>
   </li>
   <li class="nav-item">
     <a class="nav-link" href="{{ url_for('auth.signin') }}">Sign In</a>
   </li>
+  {% else %}
+  <li class="nav-item">
+    <a class="nav-link" href="{{ url_for('collection.car') }}">Our Inventory</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{{ url_for('collection.user_page', username=current_user.username) }}">Your Space</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{{ url_for('auth.logout') }}">Log Out</a>
+  </li>
+  {% endif %}
 </ul>
 </nav>
 {# end nav bar here #}

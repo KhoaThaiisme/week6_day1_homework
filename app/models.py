@@ -34,7 +34,8 @@ class Car(db.Model):
     brand=db.Column(db.String(50))
     model=db.Column(db.String(50))
     year=db.Column(db.Integer)
-    user_id=db.Column(db.Integer, db.ForeignKey('user.user_id'))
+    description=db.Column(db.String(200))
+    user_id=db.Column(db.Integer, db.ForeignKey('user.user_id'), nullable=False)
 
     def __repr__(self):
         return f'Car: {self.brand}'
